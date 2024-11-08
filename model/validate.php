@@ -328,5 +328,33 @@ class Validate {
         $field->clearErrorMessage();
     }
 
+    public function birthdate($name, $value, $required = true) {
+        $field = $this->fields->getField($name);
+        $datePattern = '/^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][[:digit:]]|3[01])\/[[:digit:]]{4}$/';
+
+        $this->pattern($name, $value, $datePattern,
+                'Invalid date format.', $required);
+        if ($field->hasError()) { return; }
+
+        $parts = explode('/', $value);
+        $month = intval($parts[0]);
+        $day = intval($parts[1]);
+        $year = intval($parts[2]);
+
+        if (!checkdate($month, $day, $year)) {
+            $field->setErrorMessage('Invalid date.');
+            return;
+        }
+
+        $birthdate = new \DateTime($value);
+        $now = new \DateTime();
+
+        if ($birthdate > $now) {
+            $field->setErrorMessage('Date is in future.');
+            return;
+        }
+        $field->clearErrorMessage();
+    }
+
 }
 ?>
