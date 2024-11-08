@@ -146,24 +146,11 @@ class Validate {
             return;
         }
 
-        $this->text($name, $password, $required, 6);
+        $this->text($name, $password, $required, 8);
         if ($field->hasError()) { return; }
 
-        // Patterns to validate password
-        $charClasses = array();
-        $charClasses[] = '[:digit:]';
-        $charClasses[] = '[:upper:]';
-        $charClasses[] = '[:lower:]';
-        $charClasses[] = '_-';
-
-        $pw = '/^';
-        $valid = '[';
-        foreach($charClasses as $charClass) {
-            $pw .= '(?=.*[' . $charClass . '])';
-            $valid .= $charClass;
-        }
-        $valid .= ']{6,}';
-        $pw .= $valid . '$/';
+        // Pattern to validate password
+        $pw = '/^(?=.*[A-Z])(?=.*\d)[\w-]{8,}$/';
 
         $pwMatch = preg_match($pw, $password);
 
@@ -172,7 +159,7 @@ class Validate {
             return;
         } else if ($pwMatch != 1) {
             $field->setErrorMessage(
-                    'Must have one each of upper, lower, digit, and "-_".');
+                    'Must have one each of upper and digit.');
             return;
         }
     }
