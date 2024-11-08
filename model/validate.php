@@ -67,7 +67,7 @@ class Validate {
         if ($field->hasError()) { return; }
 
         // Call the pattern method to validate a phone number
-        $pattern = '/^[[:digit:]]{3}-[[:digit:]]{3}-[[:digit:]]{4}$/';
+        $pattern = '/^\d{3}-\d{3}-\d{4}$/';
         $message = 'Invalid phone number.';
         $this->pattern($name, $value, $pattern, $message, $required);
     }
@@ -211,7 +211,7 @@ class Validate {
         $this->text($name, $value, $required);
         if ($field->hasError()) { return; }
 
-        $pattern = '/^[[:digit:]]{5}(-[[:digit:]]{4})?$/';
+        $pattern = '/^\d{5}(-\d{4})?$/';
         $message = 'Invalid zip code.';
         $this->pattern($name, $value, $pattern, $message, $required);
     }
