@@ -56,6 +56,11 @@
         <input type="text" name="phone" 
                value="<?php echo htmlspecialchars($phone); ?>">
         <?php echo $fields->getField('phone')->getHTML(); ?><br>
+
+        <label>Birth Date:</label>
+        <input type="text" name="birthdate"
+               value="<?php echo htmlspecialchars($birthdate); ?>">
+        <?php echo $fields->getField('birthdate')->getHTML(); ?><br>
     </fieldset>
     <fieldset>
         <legend>Payment Information</legend>

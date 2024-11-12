@@ -14,6 +14,7 @@ $fields->addField('city');
 $fields->addField('state', 'Use 2 character abbreviation.');
 $fields->addField('zip', 'Use 5 or 9 digit ZIP code.');
 $fields->addField('phone', 'Use 999-999-9999 format.');
+$fields->addField('birthdate', 'Use mm/dd/yyyy format.');
 $fields->addField('card_type');
 $fields->addField('card_number', 'Enter number with or without dashes.');
 $fields->addField('exp_date', 'Use mm/yyyy format.');
@@ -37,6 +38,7 @@ switch ($action) {
         $state = '';
         $zip = '';
         $phone = '';
+        $birthdate = '';
         $cardType = '';
         $cardNumber = '';
         $cardDigits = '';
@@ -56,6 +58,7 @@ switch ($action) {
         $state = filter_input(INPUT_POST, 'state');
         $zip = filter_input(INPUT_POST, 'zip');
         $phone = filter_input(INPUT_POST, 'phone');
+        $birthdate = filter_input(INPUT_POST, 'birthdate');
         $cardType = filter_input(INPUT_POST, 'card_type');
         $cardNumber = filter_input(INPUT_POST, 'card_number');
         $cardDigits = preg_replace('/[^[:digit:]]/', '', $cardNumber);
@@ -72,6 +75,7 @@ switch ($action) {
         $validate->state('state', $state, false);
         $validate->zip('zip', $zip, false);
         $validate->phone('phone', $phone);
+        $validate->birthdate('birthdate', $birthdate);
         $validate->cardType('card_type', $cardType);
         $validate->cardNumber('card_number', $cardDigits, $cardType);
         $validate->expDate('exp_date', $expDate);
